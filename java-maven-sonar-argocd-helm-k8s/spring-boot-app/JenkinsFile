@@ -1,7 +1,7 @@
 pipeline {
    agent {
         // Use the 'mydocker' tool as the agent
-        tool  'mydocker'
+        docker  'mydocker'
     }
   tools {
      maven 'mvn'
