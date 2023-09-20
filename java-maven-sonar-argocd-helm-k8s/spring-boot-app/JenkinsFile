@@ -50,8 +50,8 @@ pipeline {
       }
     }
     stage('Build and Push Docker Image') {
-       stage('Build and Push Docker Image') {
-      environment {
+       
+       environment {
         DOCKER_IMAGE = "haydevops/hay2665:${BUILD_NUMBER}"
         DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
         REGISTRY_CREDENTIALS = credentials('docker_hub')
@@ -66,7 +66,7 @@ pipeline {
         }
       }
     }
-    }
+    
 
     stage('Update Deployment File') {
         environment {
