@@ -17,7 +17,7 @@ pipeline {
         //sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
         //sh 'mvn clean package'
       // withMaven(maven: 'mvn') {
-        sh 'cd /var/jenkins_home/workspace/haykel_pipeline_1/java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
+        sh 'cd /var/jenkins_home/workspace/haykel2/java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
        
 
     //}  
@@ -38,7 +38,7 @@ pipeline {
         //     withMaven(maven: 'mvn') { 
          //  withSonarQubeEnv([string(credentialsId: '', installationName: 'sq1')]){
             
-            //    sh 'cd /var/jenkins_home/workspace/haykel_pipeline_1/java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean verify sonar:sonar -Dsonar.secret=${TOKEN} -Dsonar.host.url=${SONAR_URL}'
+           
           // sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.0.1.3006:sonar'
           //   sh ' mvn sonar:sonar // -X -Dsonar.secret=${sonar} -Dsonar.host.url=${SONAR_URL}'
             //  withCredentials([string(credentialsId: 'SONAR', variable: 'sonarhay')]) {
