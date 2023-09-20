@@ -2,15 +2,11 @@ pipeline {
    agent any
   tools {
      maven 'mvn'
+     docker 'myDocker'
   }
   
   stages {
-    stage('Initialize'){
-       
-        def dockerHome = tool 'myDocker'
-        //env.PATH = "${dockerHome}/bin:${env.PATH}"
-     
-    }
+    
     stage('Checkout') {
       steps {
         sh 'echo passed'
