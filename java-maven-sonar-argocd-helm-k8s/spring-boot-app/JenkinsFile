@@ -3,12 +3,7 @@ pipeline {
   tools {
      maven 'mvn'
   }
-  stage('Initialize'){
-       environment {
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
-      }
-    }
+  
   stages {
     stage('Initialize'){
        environment {
