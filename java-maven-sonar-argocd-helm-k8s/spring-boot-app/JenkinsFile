@@ -103,7 +103,7 @@ pipeline {
                    '''
                    }
 // git push origin main
-                   //git push https://${github_credentials}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                   //git push https://${github_credentials}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} -u origin main
 //https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                
           
