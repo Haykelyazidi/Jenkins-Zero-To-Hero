@@ -84,7 +84,7 @@ pipeline {
         }
         steps {
            // git credentialsId: 'github_credentials', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero.git'
-              git branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero'
+              git branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero/tree/main/java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests'
            // withCredentials([string(credentialsId: 'github_credentials', variable: 'GITHUB_TOKEN')]) {
              // withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
              // withCredentials([string(credentialsId: 'github_credentials', variable: 'var2')]) {
