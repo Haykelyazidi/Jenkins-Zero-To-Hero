@@ -89,7 +89,7 @@ pipeline {
            // git credentialsId: 'github_credentials', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero.git'
 
              // withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
-              withCredentials([string(credentialsId: 'github_credentials', variable: 'token_hub')]) {
+             
              // withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'Default')]) {
                 sh '''            
                     git config user.email "haykel.yazidi@gmail.com"
@@ -99,7 +99,9 @@ pipeline {
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     //git push origin main
-                    git push https://${token_hub}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main                    
+                    withCredentials([string(credentialsId: 'github_credentials', variable: '')]) {
+                      git push https://github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main                    
+                    //git push https://${token_hub}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main                    
                    '''
                    }
 // git push origin main
