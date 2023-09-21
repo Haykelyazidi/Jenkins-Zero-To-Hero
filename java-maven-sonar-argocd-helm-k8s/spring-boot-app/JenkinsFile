@@ -84,7 +84,7 @@ pipeline {
         }
         steps {
            // git credentialsId: 'github_credentials', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero.git'
-              git branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero/tree/main/java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests'
+              git branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero'
            // withCredentials([string(credentialsId: 'github_credentials', variable: 'GITHUB_TOKEN')]) {
              // withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
              // withCredentials([string(credentialsId: 'github_credentials', variable: 'var2')]) {
@@ -95,7 +95,7 @@ pipeline {
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
-                    git push origin main
+                    git push
                   '''
 //https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
                
