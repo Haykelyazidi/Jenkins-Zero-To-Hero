@@ -90,7 +90,7 @@ pipeline {
              // withCredentials([string(credentialsId: 'github_credentials', variable: 'var2')]) {
               //withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'Default')]) {
                 sh '''
-                    git remote add origin git@github.com:Haykelyazidi/Jenkins-Zero-To-Hero.git
+                    //git remote add origin git@github.com:Haykelyazidi/Jenkins-Zero-To-Hero.git
                     git config user.email "haykel.yazidi@gmail.com"
                     git config --global user.name "Haykelyazidi"
                     BUILD_NUMBER=${BUILD_NUMBER}
