@@ -84,12 +84,12 @@ pipeline {
         }
         steps {
             //  git branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero'
-            withCredentials([string(credentialsId: 'github_credentials', variable: '')]) {
-            git credentialsId: 'github_credentials', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero.git'
+           // withCredentials([string(credentialsId: 'github_credentials', variable: '')]) {
+           // git credentialsId: 'github_credentials', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero.git'
 
              // withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
              // withCredentials([string(credentialsId: 'github_credentials', variable: 'var2')]) {
-              //withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'Default')]) {
+              withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
                 sh '''            
                     git config user.email "haykel.yazidi@gmail.com"
                     git config user.name "Haykelyazidi"
