@@ -83,12 +83,12 @@ pipeline {
             GIT_USER_NAME = "Haykelyazidi"
         }
         steps {
-           // git credentialsId: 'github_credentials', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero.git'
+            //git credentialsId: 'github_credentials', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero.git'
             //  git branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero'
-           // withCredentials([string(credentialsId: 'github_credentials', variable: 'GITHUB_TOKEN')]) {
+            withCredentials([string(credentialsId: 'github_credentials', variable: 'GITHUB_TOKEN')]) {
              // withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
              // withCredentials([string(credentialsId: 'github_credentials', variable: 'var2')]) {
-              withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'Default')]) {
+              //withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'Default')]) {
                 sh '''
                     git config user.email "haykel.yazidi@gmail.com"
                     git config --global user.name "Haykelyazidi"
