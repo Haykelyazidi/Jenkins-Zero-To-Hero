@@ -101,7 +101,7 @@ pipeline {
                     '''
                     //git push origin main
                     withCredentials([string(credentialsId: 'github_credentials', variable: '')]) {
-                     sh 'git push https://github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main                    
+                     sh 'git push https://github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                    
                     //git push https://${token_hub}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                   
                    
                    }
