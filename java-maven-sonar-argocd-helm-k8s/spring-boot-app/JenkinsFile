@@ -92,8 +92,8 @@ pipeline {
              
              // withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'Default')]) {
                 sh '''            
-                    git config user.email "haykel.yazidi@gmail.com"
-                    git config user.name "Haykelyazidi"
+                    git config --global user.email "haykel.yazidi@gmail.com"
+                    git config --global user.name "Haykelyazidi"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
                     git add java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
@@ -101,8 +101,8 @@ pipeline {
                     '''
                     //git push origin main
                     withCredentials([string(credentialsId: 'github_credentials', variable: '')]) {
-                     sh 'git push https://github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                    
-                    //git push https://${token_hub}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                   
+                    // sh 'git push https://github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                    
+                     sh 'git push https://${token_hub}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                   
                    
                    }
 // git push origin main
