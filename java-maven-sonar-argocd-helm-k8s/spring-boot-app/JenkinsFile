@@ -1,7 +1,5 @@
 pipeline {
-   agent {
-        label 'git'
-    }
+   agent any
   tools {
      maven 'mvn'
     
