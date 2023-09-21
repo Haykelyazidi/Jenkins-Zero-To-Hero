@@ -89,7 +89,7 @@ pipeline {
 
              // withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
              // withCredentials([string(credentialsId: 'github_credentials', variable: 'var2')]) {
-              withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
+              withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'Default')]) {
                 sh '''            
                     git config user.email "haykel.yazidi@gmail.com"
                     git config user.name "Haykelyazidi"
