@@ -100,7 +100,7 @@ pipeline {
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}"
                     '''
                     //git push origin main
-                    withCredentials([string(credentialsId: 'github_credentials', variable: '')]) {
+                    withCredentials([string(credentialsId: 'github_credentials', variable: 'token_hub')]) {
                     // sh 'git push https://github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                    
                      sh 'git push https://${token_hub}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                   
                    
