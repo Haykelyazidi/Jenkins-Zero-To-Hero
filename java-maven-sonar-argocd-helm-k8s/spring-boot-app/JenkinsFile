@@ -117,7 +117,7 @@ pipeline {
     stage('Send mail ') {
       steps {
         sh 'echo Sending Mail'
-        mail (subject: 'haykel pipe1', to: 'haykel.yazidi@gmail.com')
+       mail bcc: '', body: 'from jenkins server', cc: '', from: '', replyTo: '', subject: 'test', to: 'haykel.yazidi@gmail.com'
       }
     }
   }
