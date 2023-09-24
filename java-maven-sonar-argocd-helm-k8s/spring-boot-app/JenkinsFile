@@ -115,7 +115,7 @@ pipeline {
   }
 post {
     success {
-      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/java-maven-sonar-argocd-helm-k8s/spring-boot-app/target/', reportFiles: 'reporthaykel.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/target/site', reportFiles: 'reporthaykel.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
     }
   }
   }
