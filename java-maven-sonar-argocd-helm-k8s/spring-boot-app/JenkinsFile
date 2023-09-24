@@ -112,7 +112,7 @@ pipeline {
           
         }
     }
-          stages {
+         
     
     stage('Send mail ') {
       steps {
@@ -123,5 +123,5 @@ pipeline {
   }
 
 
-  }
+  
 }
