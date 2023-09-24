@@ -112,10 +112,15 @@ pipeline {
           
         }
     }
-  }
-post {
-    success {
-      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/target/site', reportFiles: 'reporthaykel.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+          stages {
+    
+    stage('Send mail ') {
+      steps {
+        sh 'echo Sending Mail'
+        mail bcc: '', body: '', cc: '', from: '', replyTo: '', subject: 'haykel pipe1', to: 'haykel.yazidi@gmail.com'
+      }
     }
   }
+
+
   }
