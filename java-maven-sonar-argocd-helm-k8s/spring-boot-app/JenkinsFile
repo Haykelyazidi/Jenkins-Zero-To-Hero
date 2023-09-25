@@ -81,7 +81,7 @@ pipeline {
                 // Clean up the workspace
                 deleteDir()
                // Delete image locally
-               sh 'docker rmi ${DOCKER_IMAGE}'
+               sh "docker rmi ${DOCKER_IMAGE}"
             }
         }
     stage('Approval') {
