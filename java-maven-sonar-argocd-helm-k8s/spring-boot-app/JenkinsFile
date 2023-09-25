@@ -139,8 +139,8 @@ pipeline {
                 Console Output: ${env.BUILD_URL}console
                 Workspace: ${env.WORKSPACE}
                 """
-                to: 'haykel.yazidi@gmail.com',
-                mimeType: 'text/html')
+                to: 'haykel.yazidi@gmail.com', mimeType: 'text/html'
+                  )
       }
     }
   }
