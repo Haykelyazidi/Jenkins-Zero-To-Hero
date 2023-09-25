@@ -86,19 +86,14 @@ pipeline {
         }
     }
 
-    stage('Update Deployment File') {
+    stage('Update-Deployment-File') {
         environment {
             GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
             GIT_USER_NAME = "Haykelyazidi"
         }
         steps {
-            //  git branch: 'main', credentialsId: 'github_cred', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero'
-           // withCredentials([string(credentialsId: 'github_credentials', variable: '')]) {
-           // git credentialsId: 'github_credentials', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero.git'
-
-             // withCredentials([gitUsernamePassword(credentialsId: 'github_credentials', gitToolName: 'Default')]) {
-             
-             // withCredentials([gitUsernamePassword(credentialsId: 'github_cred', gitToolName: 'Default')]) {
+           lock(resource: 'Update-Deployment-File'){
+           
                 sh '''            
                     git config --global user.email "haykel.yazidi@gmail.com"
                     git config --global user.name "Haykelyazidi"
@@ -111,7 +106,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'github_credentials', variable: 'token_hub')]) {
                     // sh 'git push https://github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                    
                      sh 'git push https://${token_hub}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                   
-                   
+                   }
                    }
 // git push origin main
                    //git push https://${github_credentials}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} -u origin main
