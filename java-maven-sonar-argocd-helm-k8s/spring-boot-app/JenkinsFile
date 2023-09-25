@@ -76,13 +76,7 @@ pipeline {
         }
       }
     }
-     stage('Workspace Cleanup') {
-            steps {
-                // Clean up the workspace
-                cleanWs()
-               
-            }
-        }
+    
     stage('Approval') {
         agent none
         steps {
@@ -153,6 +147,13 @@ pipeline {
          }
       }
     }
+ stage('Workspace Cleanup') {
+            steps {
+                // Clean up the workspace
+                cleanWs()
+               
+            }
+        }
   }
 
 
