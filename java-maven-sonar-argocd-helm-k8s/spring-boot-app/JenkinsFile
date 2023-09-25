@@ -125,7 +125,22 @@ pipeline {
         }
     }
          
-    
+    stage('Capture Console Output') {
+            steps {
+                script {
+                    def consoleOutput = ""
+                    try {
+                        consoleOutput = currentBuild.rawBuild.getLog(1000).join('\n')
+                    } catch (Exception e) {
+                        consoleOutput = "Error: Could not retrieve console output."
+                    }
+
+                    // You can now use the 'consoleOutput' variable as needed.
+                    // For example, you can echo it or send it in an email.
+                    echo "Captured Console Output:\n${consoleOutput}"
+                }
+            }
+        }
     stage('Send mail ') {
       steps {
         script {
