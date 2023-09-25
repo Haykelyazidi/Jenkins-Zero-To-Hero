@@ -140,7 +140,7 @@ pipeline {
                 Workspace: ${env.WORKSPACE}
                 """
                 to: 'haykel.yazidi@gmail.com',
-                mimeType: 'text/html'
+                mimeType: 'text/html')
       }
     }
   }
