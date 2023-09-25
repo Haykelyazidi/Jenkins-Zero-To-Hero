@@ -79,9 +79,8 @@ pipeline {
      stage('Workspace Cleanup') {
             steps {
                 // Clean up the workspace
-                deleteDir()
-               // Delete image locally
-               sh "docker rmi ${dockerImage}"
+                cleanWs()
+               
             }
         }
     stage('Approval') {
