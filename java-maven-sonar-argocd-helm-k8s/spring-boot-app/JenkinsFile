@@ -2,6 +2,11 @@
    agent any
   tools {
      maven 'mvn'
+   environment {
+
+       DOCKER_IMAGE = "haydevops/hay2665:${BUILD_NUMBER}"
+       
+  }
     
      
   }
@@ -167,7 +172,7 @@
                  script {
                 // Delete image
                 
-                sh "docker rmi ${dockerImage}"
+                sh "docker rmi ${DOCKER_IMAGE}"
                }
             }
         }
