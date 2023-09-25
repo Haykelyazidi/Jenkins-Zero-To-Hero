@@ -128,7 +128,19 @@ pipeline {
     stage('Send mail ') {
       steps {
         sh 'echo Sending Mail'
-       mail bcc: '', body: 'from jenkins server', cc: '', from: '', replyTo: '', subject: 'test', to: 'haykel.yazidi@gmail.com'
+       currentBuild.resultIsWorseOrEqualTo('FAILURE') // Check if the build result is FAILURE or UNSTABLE
+            def buildStatus = currentBuild.resultIsWorseOrEqualTo('FAILURE') ? 'FAILED' : 'SUCCESS'
+            
+            emailext(
+                subject: "Pipeline ${buildStatus}: ${currentBuild.fullDisplayName}",
+                body: """
+                Build Status: ${buildStatus}
+                Build URL: ${env.BUILD_URL}
+                Console Output: ${env.BUILD_URL}console
+                Workspace: ${env.WORKSPACE}
+                """
+                to: 'haykel.yazidi@gmail.com',
+                mimeType: 'text/html'
       }
     }
   }
