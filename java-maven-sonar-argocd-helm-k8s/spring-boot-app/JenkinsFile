@@ -162,10 +162,10 @@
          }
       }
     }
- stage('Workspace Cleanup') {
+ stage('Delete locally image Cleanup') {
             steps {
-                // Clean up the workspace
-                cleanWs()
+                // Delete image
+                
                 sh "docker rmi ${DOCKER_IMAGE}"
                
             }
