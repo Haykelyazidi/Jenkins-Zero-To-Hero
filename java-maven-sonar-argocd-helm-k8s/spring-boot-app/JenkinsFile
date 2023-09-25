@@ -130,7 +130,7 @@ pipeline {
                 script {
                     def consoleOutput = ""
                     try {
-                        consoleOutput = currentBuild.rawBuild.getLog(1000).join('\n')
+                        consoleOutput = currentBuild.rawBuild.getLog(100).join('\n')
                     } catch (Exception e) {
                         consoleOutput = "Error: Could not retrieve console output."
                     }
