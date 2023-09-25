@@ -130,10 +130,11 @@ pipeline {
                 script {
                     def consoleOutput = ""
                     try {
-                        consoleOutput = currentBuild.rawBuild.getLog(100).join('\n')
+                        def logFile = currentBuild.rawBuild.getLogFile()
+                        consoleOutput = readFile(logFile)
                     } catch (Exception e) {
                         consoleOutput = "Error: Could not retrieve console output."
-                    }
+                     }
 
                     // You can now use the 'consoleOutput' variable as needed.
                     // For example, you can echo it or send it in an email.
