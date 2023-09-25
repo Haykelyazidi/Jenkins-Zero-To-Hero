@@ -127,6 +127,7 @@ pipeline {
     
     stage('Send mail ') {
       steps {
+        script {
         sh 'echo Sending Mail'
        currentBuild.resultIsWorseOrEqualTo('FAILURE') // Check if the build result is FAILURE or UNSTABLE
             def buildStatus = currentBuild.resultIsWorseOrEqualTo('FAILURE') ? 'FAILED' : 'SUCCESS'
@@ -141,6 +142,7 @@ pipeline {
                 """,
                 to: 'haykel.yazidi@gmail.com', mimeType: 'text/html'
                   )
+         }
       }
     }
   }
