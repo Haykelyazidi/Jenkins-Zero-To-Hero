@@ -129,10 +129,10 @@ pipeline {
       steps {
         script {
         sh 'echo Sending Mail'
-       currentBuild.resultIsWorseOrEqualTo('FAILURE') // Check if the build result is FAILURE or UNSTABLE
+            currentBuild.resultIsWorseOrEqualTo('FAILURE') // Check if the build result is FAILURE or UNSTABLE
             def buildStatus = currentBuild.resultIsWorseOrEqualTo('FAILURE') ? 'FAILED' : 'SUCCESS'
             
-            emailext(
+            mail(
                 subject: "Pipeline ${buildStatus}: ${currentBuild.fullDisplayName}",
                 body: """
                 Build Status: ${buildStatus}
