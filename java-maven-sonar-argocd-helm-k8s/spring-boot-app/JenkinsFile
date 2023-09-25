@@ -164,10 +164,11 @@
     }
  stage('Delete locally image Cleanup') {
             steps {
+                 script {
                 // Delete image
                 
                 sh "docker rmi ${DOCKER_IMAGE}"
-               
+               }
             }
         }
   }
