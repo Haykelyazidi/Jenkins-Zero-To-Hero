@@ -167,7 +167,7 @@
                  script {
                 // Delete image
                 
-                sh "docker rmi ${DOCKER_IMAGE}"
+                sh "docker rmi ${dockerImage}"
                }
             }
         }
