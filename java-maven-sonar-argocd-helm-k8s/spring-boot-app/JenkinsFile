@@ -131,13 +131,14 @@ pipeline {
         sh 'echo Sending Mail'
             currentBuild.resultIsWorseOrEqualTo('FAILURE') // Check if the build result is FAILURE or UNSTABLE
             def buildStatus = currentBuild.resultIsWorseOrEqualTo('FAILURE') ? 'FAILED' : 'SUCCESS'
+            def consoleOutput = currentBuild.rawBuild.getLog(1000) // Capture the last 1000 lines of console output
             
             mail(
                 subject: "Pipeline ${buildStatus}: ${currentBuild.fullDisplayName}",
                 body: """
                 Build Status: ${buildStatus}
                 Build URL: ${env.BUILD_URL}
-                Console Output: ${env.BUILD_URL}console
+                Console Output: ${consoleOutput}
                 Workspace: ${env.WORKSPACE}
                 """,
                 to: 'haykel.yazidi@gmail.com', mimeType: 'text/html'
