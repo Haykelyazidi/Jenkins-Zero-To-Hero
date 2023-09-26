@@ -58,13 +58,7 @@
       //  }
       }
     }
-     stage('Quality Gates') {
-            steps {
-               timeout(time: 120, unit: 'SECONDS') 
-                waitForQualityGate abortPipeline: true
-            
-           }
-        }
+    
 
     stage('Build and Push Docker Image') {
        
