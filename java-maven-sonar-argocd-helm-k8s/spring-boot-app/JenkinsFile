@@ -58,6 +58,15 @@
       //  }
       }
     }
+     stage('Quality Gates') {
+            steps {
+                // Time out for 2 minutes (120 seconds)
+                timeout(time: 120, unit: 'SECONDS')
+                echo "Quality Gates have been waited for 2 minutes."
+                waitForQualityGate abortPipeline: true
+            }
+        }
+
     stage('Build and Push Docker Image') {
        
        environment {
