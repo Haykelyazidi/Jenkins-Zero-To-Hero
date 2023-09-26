@@ -62,11 +62,13 @@
             steps {
                 // Time out for 2 minutes (120 seconds)
                 timeout(time: 120, unit: 'SECONDS')
+               script {
                 echo "Quality Gates have been waited for 2 minutes."
                 def hh = waitForQualityGate ()
                 if (hh.status != 'OK')
                       error " Pipeline aborted due Quality Gate Failure"
             }
+           }
         }
 
     stage('Build and Push Docker Image') {
