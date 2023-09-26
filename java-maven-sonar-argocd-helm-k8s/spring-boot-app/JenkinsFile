@@ -36,14 +36,15 @@
     stage('Static Code Analysis') {
       environment {
         SONAR_URL = "http://54.85.94.166:9000"
+        SONAR_TOKEN = credentials('jenkins-sonar')
       }
       steps {
            sh 'java -version'
            
         
         
-           withCredentials([string(credentialsId: 'jenkins-sonar', variable: 'token')]) {
-              sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean verify sonar:sonar -Dsonar.login=${jenkins-sonar} -Dsonar.host.url=${SONAR_URL}'
+           withCredentials([string(credentialsId: 'jenkins-sonar', variable: 'SONAR_TOKEN')]) {
+              sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean verify sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.host.url=${SONAR_URL}'
                  }
           // withSonarQubeEnv('SONAR') {
         //     withMaven(maven: 'mvn') { 
