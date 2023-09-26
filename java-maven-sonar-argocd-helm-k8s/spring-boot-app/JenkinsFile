@@ -64,7 +64,7 @@
                 timeout(time: 120, unit: 'SECONDS')
                script {
                 echo "Quality Gates have been waited for 2 minutes."
-                def hh = waitForQualityGate ()
+                def hh = waitForQualityGate(), credentialsId: 'jenkins-sonar'
                 if (hh.status != 'OK')
                       error " Pipeline aborted due Quality Gate Failure"
             }
