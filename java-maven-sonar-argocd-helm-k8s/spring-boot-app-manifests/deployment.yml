@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: spring-boot-app
-        image: haydevops/hay2665:128
+        image: haydevops/hay2665:142
         ports:
         - containerPort: 8081
