@@ -193,7 +193,7 @@
  stage('test Compile') {
     agent {label 'docker'}
             steps {
-                bat script:'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app-test'
+                bat script:'C:\home\ec2-user\haykel\workspace\devaplusqa\java-maven-sonar-argocd-helm-k8s\spring-boot-app-test'
                 bat script:'mvn clean package'
             }
         }
