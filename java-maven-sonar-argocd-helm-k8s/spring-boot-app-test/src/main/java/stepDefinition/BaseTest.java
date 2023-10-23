@@ -33,9 +33,11 @@ public class BaseTest {
 		
 		//System.setProperty("webdriver.chrome.driver", "F:\\chromedriver.exe");
 		//base_test_driver = new ChromeDriver();
-		System.setProperty("webdriver.chrome.driver", "c:\\chromedriver.exe");           
-        WebDriver driver = new ChromeDriver(); 
-        driver.get("http://www.google.com/");   
+		System.setProperty("webdriver.chrome.driver", "c:\\chromedriver.exe");     
+	        base_test_driver = new ChromeDriver();
+
+       // WebDriver driver = new ChromeDriver(); 
+     //   driver.get("http://www.google.com/");   
 
 		base_test_driver.get("http://51.91.204.153:30751/");
 		
