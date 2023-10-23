@@ -1,1 +1,212 @@
 
+ pipeline {
+   agent none
+  tools {
+     maven 'mvn'
+   }
+   environment {
+
+       DOCKER_IMAGE = "haydevops/hay2665:${BUILD_NUMBER}"
+       
+  }
+    
+     
+ 
+  
+  stages   {
+     
+    stage('Checkout') {
+        agent {label 'controler'}
+      steps {
+        sh 'echo passed'
+        git branch: 'main', url: 'https://github.com/Haykelyazidi/Jenkins-Zero-To-Hero'
+      }
+    }
+    stage('Build and Test') {
+        agent {label 'controler'}
+      steps {
+        sh 'ls -ltr'
+        // build the project and create a JAR file
+        sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
+        //sh 'mvn clean package'
+      // withMaven(maven: 'mvn') {
+       // sh 'cd /var/jenkins_home/workspace/haykel2/java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
+       
+
+    //}  
+    }
+    }
+   //************************** stage('Static Code Analysis') {
+  //    environment {
+  //      SONAR_URL = "http://54.85.94.166:9000"
+  //      SONAR_TOKEN = credentials('jenkins-sonar')
+  //    }
+  //    steps {
+   //        sh 'java -version'
+           
+        
+        
+   //        withCredentials([string(credentialsId: 'jenkins-sonar', variable: 'SONAR_TOKEN')]) {
+    //          sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean verify sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.host.url=${SONAR_URL}'
+     //            }
+          // withSonarQubeEnv('SONAR') {
+        //     withMaven(maven: 'mvn') { 
+         //  withSonarQubeEnv([string(credentialsId: '', installationName: 'sq1')]){
+            
+           
+          // sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.0.1.3006:sonar'
+          //   sh ' mvn sonar:sonar // -X -Dsonar.secret=${sonar} -Dsonar.host.url=${SONAR_URL}'
+            //  withCredentials([string(credentialsId: 'SONAR', variable: 'sonarhay')]) {
+            //    sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn sonar:sonar -Dsonar.login=$sonarhay -Dsonar.host.url=${SONAR_URL}' 
+      //  }
+   //   }
+  //***************************************  }
+    
+
+    stage('Build and Push Docker Image') {
+               
+       environment {
+        DOCKER_IMAGE = "haydevops/hay2665:${BUILD_NUMBER}"
+        DOCKERFILE_LOCATION = "java-maven-sonar-argocd-helm-k8s/spring-boot-app/Dockerfile"
+        REGISTRY_CREDENTIALS = credentials('docker_hub')
+      }
+      agent {label 'controler'}
+      steps {
+        script {
+           sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && docker build -t ${DOCKER_IMAGE} .'
+           // def dockerImage = docker.image("${DOCKER_IMAGE}")
+           withCredentials([string(credentialsId: 'docker_hub', variable: 'DOCKER_CREDENTIALS')]) {
+                        sh "echo $DOCKER_CREDENTIALS | docker login -u haydevops --password-stdin"
+
+                        // Push the Docker image to Docker Hub
+                        sh "docker push ${DOCKER_IMAGE}"}
+         //docker.withRegistry('https://index.docker.io/v2/', 'docker_hub') {
+            sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && docker build -t ${DOCKER_IMAGE} .'
+            def dockerImage = docker.image("${DOCKER_IMAGE}")
+            dockerImage.push()
+             //withCredentials([string(credentialsId: 'docker_hub', variable: 'var1')]) {
+                
+          //  }
+        }
+      }
+    }
+    
+    stage('Approval') {
+        agent none
+        steps {
+            script {
+                def deploymentDelay = input(
+                id: 'Deploy',
+                message: 'Deploy to production?',
+                submitter: 'haykel',
+                parameters: [choice(choices: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], description: 'Hours to delay deployment?', name: 'deploymentDelay')],
+                // Specify that only user can approve or deny
+                user: 'haykel'
+            )
+            sleep time: deploymentDelay.toInteger(), unit: 'HOURS'
+            }
+        }
+    }
+
+    stage('Update-Deployment-File') {
+        environment {
+            GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
+            GIT_USER_NAME = "Haykelyazidi"
+        }
+        agent {label 'controler'}
+        steps {
+          
+           
+                sh '''            
+                    git config --global user.email "haykel.yazidi@gmail.com"
+                    git config --global user.name "Haykelyazidi"
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s/hay2665:[0-9]*/hay2665:\${BUILD_NUMBER}/" java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    git add -A java-maven-sonar-argocd-helm-k8s/spring-boot-app-manifests/deployment.yml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    '''
+                    //git push origin main
+                    withCredentials([string(credentialsId: 'github_credentials', variable: 'token_hub')]) {
+                    // sh 'git push https://github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                    
+                     sh 'git push https://${token_hub}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main'                   
+                   
+                   }
+// git push origin main
+                   //git push https://${github_credentials}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} -u origin main
+//https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+               
+          
+        }
+    }
+         
+    stage('Capture Console Output') {
+        agent {label 'controler'}
+            steps {
+                script {
+                    def consoleOutput = ""
+                    try {
+                        def logFile = currentBuild.rawBuild.getLogFile()
+                        consoleOutput = readFile(logFile)
+                    } catch (Exception e) {
+                        consoleOutput = "Error: Could not retrieve console output."
+                     }
+
+                    // You can now use the 'consoleOutput' variable as needed.
+                    // For example, you can echo it or send it in an email.
+                    echo "Captured Console Output:\n${consoleOutput}"
+                }
+            }
+        }
+    stage('Send mail ') {
+        agent {label 'controler'}
+      steps {
+        script {
+        sh 'echo Sending Mail'
+            currentBuild.resultIsWorseOrEqualTo('FAILURE') // Check if the build result is FAILURE or UNSTABLE
+            def buildStatus = currentBuild.resultIsWorseOrEqualTo('FAILURE') ? 'FAILED' : 'SUCCESS'
+            def consoleOutput = currentBuild.rawBuild.getLog(1000) // Capture the last 1000 lines of console output
+            
+            mail(
+                subject: "Pipeline ${buildStatus}: ${currentBuild.fullDisplayName}",
+                body: """
+                Build Status: ${buildStatus}
+                Build URL: ${env.BUILD_URL}
+                Console Output: ${consoleOutput}
+                Workspace: ${env.WORKSPACE}
+                """,
+                to: 'haykel.yazidi@gmail.com', mimeType: 'text/html'
+                  )
+         }
+      }
+    }
+ stage('Delete locally image Cleanup') {
+    agent {label 'controler'}
+            steps {
+                 script {
+                // Delete image
+                
+                sh "docker rmi ${DOCKER_IMAGE}"
+               }
+            }
+        }
+  }
+ stage('test Compile') {
+    agent {label 'docker'}
+            steps {
+                bat script:'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app-test'
+                bat script:'mvn clean package'
+            }
+        }
+      stage('test') {
+        agent {label 'docker'}
+            steps {
+                script{
+                bat script: 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app-test'
+                bat script: 'mvn clean test -Dbrowser=localchrome'
+                testNG reportFilenamePattern: 'target/surefire-reports/testng-results.xml'
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'target/surefire-reports/Extend*.html', reportName: 'HTML HAYKEL Report', reportTitles: '', useWrapperFileDirectly: true])        }}
+    }
+}
+
+  
+}
