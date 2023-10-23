@@ -204,12 +204,14 @@
 stage('testng') {
     agent {label 'docker'}
             steps {
-                script{
-                bat script: 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app-test'
-                bat script: 'mvn clean test -Dbrowser=localchrome'
+                bat(script: """
+                    cd java-maven-sonar-argocd-helm-k8s\\spring-boot-app-test
+                    mvn clean test -Dbrowser=localchrome
+                """)
+                
                 testNG reportFilenamePattern: 'java-maven-sonar-argocd-helm-k8s/spring-boot-app-test/target/surefire-reports/testng-results.xml'
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'java-maven-sonar-argocd-helm-k8s/spring-boot-app-test/target/surefire-reports/Extend*.html', reportName: 'HTML HAYKEL Report', reportTitles: '', useWrapperFileDirectly: true]) 
-}}
+}
     }}
 }
 
