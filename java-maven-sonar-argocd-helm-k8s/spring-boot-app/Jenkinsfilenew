@@ -189,7 +189,7 @@
                }
             }
         }
-  }
+  
  stage('test Compile') {
     agent {label 'docker'}
             steps {
@@ -207,7 +207,7 @@ stage('testng') {
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '', reportFiles: 'java-maven-sonar-argocd-helm-k8s/spring-boot-app-test/target/surefire-reports/Extend*.html', reportName: 'HTML HAYKEL Report', reportTitles: '', useWrapperFileDirectly: true]) 
 }}
     }}
-
+}
 
   
 
