@@ -197,8 +197,8 @@
                 bat script:'mvn clean package'
             }
         }
-      stage('test testng') {
-        agent {label 'docker'}
+stage('testng') {
+    agent {label 'docker'}
             steps {
                 script{
                 bat script: 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app-test'
