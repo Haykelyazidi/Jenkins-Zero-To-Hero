@@ -194,7 +194,7 @@
     agent {label 'docker'}
             steps {
                 bat(script: """
-                    cd cd c:\\home\\ec2-user\\haykel\\workspace\\devaplusqa\\java-maven-sonar-argocd-helm-k8s\\spring-boot-app-test
+                    cd java-maven-sonar-argocd-helm-k8s\\spring-boot-app-test
                     mvn clean package
                 """)
                // bat script:"cd C:\\home\\ec2-user\\haykel\\workspace\\devaplusqa\\java-maven-sonar-argocd-helm-k8s\\spring-boot-app-test"
