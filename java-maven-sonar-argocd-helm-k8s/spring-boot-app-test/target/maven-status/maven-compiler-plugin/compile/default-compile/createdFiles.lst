@@ -1,0 +1,5 @@
+pages\Jenkins_Web_Page.class
+stepDefinition\Verificiation_CICD.class
+pages\Jenkins_Web_Page1.class
+stepDefinition\BaseTest.class
+pages\Base_page.class

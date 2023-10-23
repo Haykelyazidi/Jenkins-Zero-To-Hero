@@ -1,0 +1,5 @@
+# Created at 2023-10-23T17:30:54.112
+Boot Manifest-JAR contains absolute paths in classpath 'E:\DEVOPS\2023\ZERO-to-HERO-JENKINS\Jenkins-Zero-To-Hero\java-maven-sonar-argocd-helm-k8s\spring-boot-app-test\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
